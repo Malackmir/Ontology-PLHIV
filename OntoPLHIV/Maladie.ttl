@@ -1,0 +1,322 @@
+@prefix : <http://example.org/maladie#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+##### Declaration de l'ontologie #####
+
+<http://example.org/maladie> rdf:type owl:Ontology .
+
+
+##### Declaration des Classes #####
+
+### Maladie ###
+:Maladie rdf:type owl:Class .
+
+    ### Maladie Transmissible ###
+    :Maladie_Transmissible rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie_Infectieuse .
+
+    ### Maladie Non Transmissible ###
+    :Maladie_Non_Transmissible rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie .
+
+            :Cancer rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Non_Transmissible .
+
+            :Diabete rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Non_Transmissible .
+
+            :Maladie_Cardiovasculaire rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Non_Transmissible .
+
+            :Maladie_Inflammatoire rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Non_Transmissible .                                                          
+
+    ### Maladie Infectieuse ###
+    :Maladie_Infectieuse rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie .
+
+            ### Infection Bacterienne ###
+            :Infection_Bacterienne rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Infectieuse .                                                                                         
+
+            ### Infection Fongique ###
+            :Infection_Fongique rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Infectieuse .                                                                          
+
+            ### Infection Parasitaire ###
+            :Infection_Parasitaire rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Infectieuse .                                                         
+
+            ### Infection Virale ###
+            :Infection_Virale rdf:type owl:Class ;
+                rdfs:subClassOf :Maladie_Infectieuse .   
+
+                    ### Infection VIH ###
+                    :Infection_VIH rdf:type owl:Class ;
+                        rdfs:subClassOf :Infection_Virale ;                                                                                                                                
+
+    ### Maladie Co Infectieuse ###
+    :Maladie_Co_Infectieuse rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie_Infectieuse .                                         
+
+    ### Maladie Comorbidite ###
+    :Maladie_Comorbidite rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie .       
+
+    ### Maladie Opportuniste ###
+    :Maladie_Opportuniste rdf:type owl:Class ;
+        rdfs:subClassOf :Maladie. 
+                                                                                                                                  
+
+### Stade OMS ###
+:Stade rdf:type owl:Class .  
+
+    ### Stade 1 OMS ###
+    :Stade_1 rdf:type owl:Class ;
+        rdfs:subClassOf :Stade .
+
+    ### Stade 2 OMS ###
+    :Stade_2 rdf:type owl:Class ;
+        rdfs:subClassOf :Stade .
+
+    ### Stade 3 OMS ###
+    :Stade_3 rdf:type owl:Class ;
+        rdfs:subClassOf :Stade .
+
+    ### Stade 4 OMS ###
+    :Stade_4 rdf:type owl:Class ;
+        rdfs:subClassOf :Stade .                        
+
+### Mode de Transmission ###
+:Mode_Transmission rdf:type owl:Class .
+
+    :Transmission_Directe rdf:type owl:Class ;
+        rdfs:subClassOf :Mode_Transmission .
+
+    :Transmission_Indirecte rdf:type owl:Class ;
+        rdfs:subClassOf :Mode_Transmission .        
+
+### Agent de Transmission ###
+:Agent_Infectieux rdf:type owl:Class .
+
+    ### Agent Bacterie ###
+    :Bacterie rdf:type owl:Class ;
+        rdfs:subClassOf :Agent_Infectieux .
+
+    ### Agent Champignon ###
+    :Champignon rdf:type owl:Class ;
+        rdfs:subClassOf :Agent_Infectieux .
+
+    ### Agent Parasite ###
+    :Parasite rdf:type owl:Class ;
+        rdfs:subClassOf :Agent_Infectieux .
+
+    ### Agent Virus ###
+    :Virus rdf:type owl:Class ;
+        rdfs:subClassOf :Agent_Infectieux .    
+
+### Manifestation Clinique Maladie ###
+:Manifestation_Clinique rdf:type owl:Class .                           
+
+    ### Signe Maladie ###
+    :Signe rdf:type owl:Class ;
+        rdfs:subClassOf :Manifestation_Clinique .     
+
+    ### Symptome Maladie ###
+    :Symptome rdf:type owl:Class ;
+        rdfs:subClassOf :Manifestation_Clinique .     
+
+        ### Symptome Respiratoire ###
+        :Symptome_Respiratoire rdf:type owl:Class ;
+            rdfs:subClassOf :Symptome .
+
+                :Hemoptysie rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Respiratoire .     
+
+                :Toux_Chronique rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Respiratoire . 
+
+                :Dyspnee rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Respiratoire .                                       
+
+        ### Symptome Digestif ###
+        :Symptome_Digestif rdf:type owl:Class ;
+            rdfs:subClassOf :Symptome .
+
+                :Dysphagie rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Digestif .     
+
+                :Vomissements rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Digestif . 
+
+                :Diarrhee_Chronique rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Digestif .    
+
+                :Anorexie rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Digestif .                      
+
+        ### Symptome Dermatologique ###
+        :Symptome_Dermatologique rdf:type owl:Class ;
+            rdfs:subClassOf :Symptome .
+
+        ### Symptome Neurologique ###
+        :Symptome_Neurologique rdf:type owl:Class ;
+            rdfs:subClassOf :Symptome . 
+
+                :Neuropathies_Peripheriques rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Neurologique .     
+
+                :Cephalee rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Neurologique . 
+
+                :Deficit_Moteur rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Neurologique .    
+
+                :Convulsion rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Neurologique .      
+
+                :Coma rdf:type owl:Class ;
+                    rdfs:subClassOf :Symptome_Neurologique .                    
+
+
+##### Declaration des ObjetProperty #####
+
+:a_pour_manifestation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie ;
+    rdfs:range :Manifestation_Clinique .    
+
+:se_manifestation_par rdf:type owl:ObjectProperty ;
+    rdfs:domain :Stade ;
+    rdfs:range :Manifestation_Clinique .     
+
+:a_pour_symptome rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie ;
+    rdfs:range :Symptome .
+
+:a_pour_signe rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie ;
+    rdfs:range :Signe .
+
+:a_pour_agent_infectieux rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie_Infectieuse ;
+    rdfs:range :Agent_Infectieux .
+
+:a_pour_mode_transmission rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie_Transmissible ;
+    rdfs:range :Mode_Transmission .
+
+:a_pour_stade rdf:type owl:ObjectProperty ;
+    rdfs:domain :Infection_VIH ;
+    rdfs:range :Stade .   
+
+:a_pour_comorbidite rdf:type owl:ObjectProperty ;
+    rdfs:domain :Infection_VIH ;
+    rdfs:range :Maladie ;
+    owl:inverseOf :est_une_comorbidite .  
+
+:est_une_comorbidite rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie ;
+    rdfs:range :Infection_VIH ;
+    owl:inverseOf :a_pour_comorbidite .       
+
+:a_pour_co_infection rdf:type owl:ObjectProperty ;
+    rdfs:domain :Infection_VIH ;
+    rdfs:range :Maladie_Infectieuse ;
+    owl:inverseOf :est_une_co_infection .
+
+:est_une_co_infection rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie_Infectieuse;
+    rdfs:range :Infection_VIH ;
+    owl:inverseOf :a_pour_co_infection .    
+
+:a_pour_opportuniste rdf:type owl:ObjectProperty ;
+    rdfs:domain :Stade ;
+    rdfs:range :Maladie;
+    owl:inverseOf :est_une_opportuniste .
+
+:est_une_opportuniste rdf:type owl:ObjectProperty ;
+    rdfs:domain :Maladie ;
+    rdfs:range : Stade;
+    owl:inverseOf :a_pour_opportuniste .
+                  
+
+##### Declaration des DataProperty #####
+
+
+
+##### Declaration des Axiomes #####
+
+:Maladie_Transmissible rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_mode_transmission ;
+        owl:someValuesFrom :Mode_Transmission ] ;
+    owl:disjointWith :Maladie_Non_Transmissible .
+
+:Maladie_Non_Transmissible rdf:type owl:Class ;
+    owl:disjointWith :Maladie_Transmissible .                                                           
+
+:Maladie_Infectieuse rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_agent_infectieux ;
+        owl:someValuesFrom :Agent_Infectieux ] .
+
+:Infection_Bacterienne rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_agent_infectieux ;
+        owl:someValuesFrom :Bacterie ] .                                                                                       
+
+:Infection_Fongique rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_agent_infectieux ;
+        owl:someValuesFrom :Champignon ] .                                                                         
+
+:Infection_Parasitaire rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_agent_infectieux ;
+        owl:someValuesFrom :Parasite ] .                                                      
+
+:Infection_Virale rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_agent_infectieux ;
+        owl:someValuesFrom :Virus ] .   
+                                                                                            
+:Maladie_Co_Infectieuse rdf:type owl:Class ;
+    owl:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :est_une_co_infection ;
+        owl:someValuesFrom :Infection_VIH ] .                                                                
+
+:Maladie_Comorbidite rdf:type owl:Class ;
+    owl:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :est_une_comorbidite ;
+        owl:someValuesFrom :Infection_VIH ] .       
+
+:Maladie_Opportuniste rdf:type owl:Class ;
+    owl:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :est_une_opportuniste ;
+        owl:someValuesFrom :Stade ] . 
+
+:Infection_VIH rdf:type owl:Class ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_stade ;
+        owl:someValuesFrom :Stade ] . 
+
+:Stade_3 rdf:type owl:Class ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :se_manifestation_par ;
+        owl:someValuesFrom :Manifestation_Clinique ] . 
+
+:Stade_4 rdf:type owl:Class ;
+    rdfs:subClassOf 
+        [ rdf:type owl:Restriction ;
+            owl:onProperty :se_manifestation_par ;
+            owl:someValuesFrom :Manifestation_Clinique ] , 
+        [ rdf:type owl:Restriction ;
+            owl:onProperty :a_pour_opportuniste ;
+            owl:someValuesFrom :Maladie_Opportuniste ] .             
+
+
+
+       

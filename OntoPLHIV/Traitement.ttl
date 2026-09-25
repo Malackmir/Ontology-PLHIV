@@ -1,0 +1,132 @@
+@prefix : <http://example.org/maladie#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+##### Declaration de l'ontologie #####
+
+<http://example.org/maladie> rdf:type owl:Ontology .
+
+
+##### Declaration des Classes #####
+
+### Traitement ###
+:Traitement rdf:type owl:Class .    
+
+    ### Traitement Infection VIH ###
+    :Traitement_Infection_VIH rdf:type owl:Class ;
+        rdfs:subClassOf :Traitement .
+
+### Echec Traitement ###
+:Echec_Therapeutique rdf:type owl:Class .  
+
+### Resistance Traitement ###
+:Resistance_Therapeutique rdf:type owl:Class .  
+
+### Medicament ###
+:Medicament rdf:type owl:Class .  
+
+    ### Antiretroviral ###
+    :Antiretroviral rdf:type owl:Class ; 
+        rdfs:subClassOf :Medicament .   
+
+            ### IF (Inhibiteur de Fusion) ###
+            :IF rdf:type owl:Class ;
+                rdfs:subClassOf :Antiretroviral .
+
+            ### INTI (Inhibiteurs nucleosidiques de la transcriptase inverse) ###
+            :INTI rdf:type owl:Class ;
+                rdfs:subClassOf :Antiretroviral .
+
+            ### INNTI (Inhibiteurs non nucleosidiques de la transcriptase inverse) ###
+            :INNTI rdf:type owl:Class ;
+                rdfs:subClassOf :Antiretroviral .
+
+            ### IP (Inhibiteurs de protease) ###
+            :IP rdf:type owl:Class ;
+                rdfs:subClassOf :Antiretroviral .
+
+            ### INI (inhibiteurs de l'integrase)  ###
+            :INI rdf:type owl:Class ;
+                rdfs:subClassOf :Antiretroviral .
+
+### Effet Secondaire ###
+:Effet_Secondaire rdf:type owl:Class .  
+
+### Effet Indesirable ###
+:Effet_Indesirable rdf:type owl:Class .  
+
+### Protocole Therapeutique ###
+:Protocole_ARV rdf:type owl:Class .    
+
+    ### Protocole Ligne 1 VIH ###
+    :Protocole_Ligne_1 rdf:type owl:Class ;
+        rdfs:subClassOf :Protocole_ARV .
+
+    ### Protocole Ligne 2 VIH ###
+    :Protocole_Ligne_2 rdf:type owl:Class ;
+        rdfs:subClassOf :Protocole_ARV .
+
+    ### Protocole Ligne 3 VIH ###
+    :Protocole_Ligne_3 rdf:type owl:Class ;
+        rdfs:subClassOf :Protocole_ARV .
+
+
+##### Declaration des ObjetProperty #####
+
+:a_pour_echec_therapeutique rdf:type owl:ObjectProperty ;
+    rdfs:domain :Traitement ;
+    rdfs:range :Echec_Therapeutique .    
+
+:a_pour_resistance_therapeutique rdf:type owl:ObjectProperty ;
+    rdfs:domain :Traitement ;
+    rdfs:range :Resistance_Therapeutique .       
+
+:a_comme_medicament rdf:type owl:ObjectProperty ;
+    rdfs:domain :Traitement ;
+    rdfs:range :Medicament .
+
+:a_pour_effet_secondaire rdf:type owl:ObjectProperty ;
+    rdfs:domain :Medicament ;
+    rdfs:range :Effet_Secondaire .
+
+:a_pour_effet_indesirable rdf:type owl:ObjectProperty ;
+    rdfs:domain :Medicament ;
+    rdfs:range :Effet_Indesirable .
+
+:a_pour_protocole_ARV rdf:type owl:ObjectProperty ;
+    rdfs:domain :Traitement ;
+    rdfs:range :Protocole_ARV .    
+
+:a_comme_antiretroviral rdf:type owl:ObjectProperty ;
+    rdfs:domain :Protocole_ARV ;
+    rdfs:range :Antiretroviral .   
+
+:a_comme_medicament owl:propertyChainAxiom (
+    :a_pour_protocole_ARV
+    :a_comme_antiretroviral
+) .
+
+
+##### Declaration des DataProperty #####
+
+
+
+##### Declaration des Axiomes #####
+
+:Traitement_Infection_VIH rdf:type owl:Class ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :a_pour_protocole_ARV ;
+        owl:someValuesFrom :Protocole_ARV ] . 
+
+:Protocole_ARV rdf:type owl:Class ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :a_comme_antiretroviral ;
+        owl:someValuesFrom :Antiretroviral ] . 
+
+:Protocole_ARV rdf:type owl:Class ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty :a_comme_antiretroviral ;
+        owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+        owl:onClass :Antiretroviral ] .        
